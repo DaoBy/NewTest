@@ -1,9 +1,13 @@
 <?php
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AdminDashboardController;
 use App\Http\Controllers\Dashboard\CollectorDashboardController;
 use App\Http\Controllers\Dashboard\CustomerDashboardController;
 use App\Http\Controllers\Dashboard\DriverDashboardController;
 use App\Http\Controllers\Dashboard\StaffDashboardController;
+use App\Http\Controllers\RequestDeliveryController;
+use App\Http\Controllers\AddressBookController;
+use App\Http\Controllers\TransactionHistoryController;
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -13,16 +17,26 @@ use Inertia\Inertia;
 
 Route::get('/', fn() => Inertia::render('Customer/Home'))->name('customer.home');
 
-//Tracking
-Route::get('/tracking', function () {
-    return Inertia::render('Customer/Tracking');
-})->name('tracking');
 
-//Delivery Request
-Route::get('/request', function () {
-    return Inertia::render('Customer/RequestDelivery');
-})->name('request.delivery');
 
+Route::middleware(['auth', 'role:customer'])->group(function () {
+    Route::get('/request-delivery', [RequestDeliveryController::class, 'create'])->name('request.delivery');
+    Route::post('/request-delivery', [RequestDeliveryController::class, 'store'])->name('delivery.store');
+    Route::get('/address-book', [AddressBookController::class, 'index'])->name('address.book');
+    Route::post('/address-book', [AddressBookController::class, 'store'])->name('address.book.store');
+    Route::put('/address-book/{id}', [AddressBookController::class, 'update'])->name('address.book.update');
+    Route::delete('/address-book/{id}', [AddressBookController::class, 'destroy'])->name('address.book.destroy');
+
+    // Transaction History Routes
+    Route::get('/transaction-history', [TransactionHistoryController::class, 'index'])->name('transaction.history');
+});
+
+
+Route::get('/tracking', fn() => Inertia::render('Customer/Tracking'))->name('tracking');
+Route::get('/about-us', fn() => Inertia::render('Customer/AboutUs'))->name('about.us');
+Route::get('/services', fn() => Inertia::render('Customer/Services'))->name('services');
+Route::get('/contact-us', [ContactController::class, 'index'])->name('contact.us');
+Route::post('/contact-us', [ContactController::class, 'submit'])->name('contact.submit');
 
 
 // Customer Dashboard (default role: customer)
