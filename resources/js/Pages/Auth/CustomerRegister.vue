@@ -13,12 +13,6 @@ const form = useForm({
     phone_number: '',
     password: '',
     password_confirmation: '',
-    address: '',
-    birth_date: '',
-    gender: '',
-    company_name: '',
-    national_id: '',
-    customer_type: 'individual',
 });
 
 // Handle form submission
@@ -74,18 +68,6 @@ const submit = () => {
                     required
                 />
                 <InputError class="mt-2" :message="form.errors.phone_number" />
-            </div>
-
-            <!-- Address -->
-            <div class="mt-4">
-                <InputLabel for="address" value="Address" />
-                <TextInput
-                    id="address"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.address"
-                />
-                <InputError class="mt-2" :message="form.errors.address" />
             </div>
 
             <!-- Password -->

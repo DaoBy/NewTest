@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'; // Import ref here
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
 // Placeholder data for transactions
@@ -14,7 +14,7 @@ const transactions = ref([
 <template>
   <Head title="Transaction History" />
 
-  <AuthenticatedLayout>
+  <GuestLayout>
     <template #header>
       <h2 class="text-xl font-semibold leading-tight text-gray-800">Transaction History</h2>
     </template>
@@ -55,5 +55,5 @@ const transactions = ref([
         </div>
       </div>
     </div>
-  </AuthenticatedLayout>
+  </GuestLayout>
 </template> 

@@ -46,7 +46,7 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
 
 // Dashboard routes for specific employee roles
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
 });
 
 Route::middleware(['auth', 'role:staff'])->group(function () {
@@ -67,4 +67,72 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+
+// Admin Routes
+Route::prefix('admin')->group(function () {
+    // Admin Dashboard
+    Route::get('/dashboard', fn () => Inertia::render('Admin/AdminDash'))->name('admin.dashboard');
+
+    // Employee Management
+    Route::get('/employees', fn () => Inertia::render('Admin/EmpManagement'))->name('admin.employees');
+
+    // Customer Management
+    Route::get('/customers', fn () => Inertia::render('Admin/CusManagement'))->name('admin.customers');
+
+    // Truck Management
+    Route::get('/trucks', fn () => Inertia::render('Admin/TruckManagement'))->name('admin.trucks');
+
+    // Region/Area Management
+    Route::get('/regions', fn () => Inertia::render('Admin/RegionManagement'))->name('admin.regions');
+
+    // Item Management
+    Route::get('/items', fn () => Inertia::render('Admin/Items'))->name('admin.ItemManagement');
+
+    // Cargo Assignment
+    Route::get('/cargo-assignments', fn () => Inertia::render('Admin/CargoAssign'))->name('admin.cargo-assignments');
+
+    // Package Tracking
+    Route::get('/package-tracking', fn () => Inertia::render('Admin/PackageTrack'))->name('admin.package-tracking');
+
+    // Driver Monitoring
+    Route::get('/driver-monitoring', fn () => Inertia::render('Admin/DriverMonitor'))->name('admin.driver-monitoring');
+
+    // Billing
+    Route::get('/billing', fn () => Inertia::render('Admin/Billing'))->name('admin.billing');
+
+    // Payment Management
+    Route::get('/payment-management', fn () => Inertia::render('Admin/PaymentManagement'))->name('admin.payment-management');
+
+    // Payment Status
+    Route::get('/payment-status', fn () => Inertia::render('Admin/PaymentStatus'))->name('admin.payment-status');
+
+    // Waybill Download
+    Route::get('/waybill-download', fn () => Inertia::render('Admin/WaybillDownload'))->name('admin.waybill-download');
+
+    // Truck Manifest
+    Route::get('/truck-manifests', fn () => Inertia::render('Admin/TruckManifests'))->name('admin.truck-manifests');
+
+    // Backup & Restore
+    Route::get('/backup-restore', fn () => Inertia::render('Admin/BackupRestore'))->name('admin.backup-restore');
+
+    // Archive
+    Route::get('/archive', fn () => Inertia::render('Admin/Archive'))->name('admin.archive');
+
+    // Settings
+    Route::get('/settings', fn () => Inertia::render('Admin/Settings'))->name('admin.settings');
+
+    // Transaction History
+    Route::get('/transaction-history', fn () => Inertia::render('TransacHistory'))->name('admin.transaction-history');
+
+    // Delivery Requests
+    Route::get('/delivery-requests', fn () => Inertia::render('Admin/DeliveryRequests'))->name('admin.delivery-requests');
+
+
+});
+
+
+
+
 require __DIR__.'/auth.php';

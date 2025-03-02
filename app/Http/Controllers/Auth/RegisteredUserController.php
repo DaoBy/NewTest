@@ -87,7 +87,7 @@ class RegisteredUserController extends Controller
         'staff'    => redirect()->route('staff.dashboard'),
         'driver'   => redirect()->route('driver.dashboard'),
         'collector'=> redirect()->route('collector.dashboard'),
-        default    => redirect()->route('dashboard'),
+        
     };
 
     }   
