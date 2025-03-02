@@ -83,7 +83,7 @@ const submit = () => {
             </div>
 
             <!-- Form Actions -->
-            <div class="mt-4 flex items-center justify-between">
+            <div class="mt-8 flex items-center justify-center ">
                 <!-- Forgot Password -->
                 <Link
                     v-if="canResetPassword"

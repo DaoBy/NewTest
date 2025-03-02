@@ -13,15 +13,15 @@ const page = usePage();
     <NavBar />
 
     <!-- Main Content -->
-    <!-- Add padding-top to prevent navbar clipping -->
-    <main class="flex-1 w-full pt-16"> <!-- Adjusted padding-top to match navbar height -->
+    <!-- Increased padding-top to add more space below the navbar -->
+    <main class="flex-1 w-full pt-28"> <!-- Increased padding-top from 16 to 24 -->
       <slot />
     </main>
 
     <!-- Footer -->
-    <!-- Reduced margin-top and adjusted padding for a more compact footer -->
-    <footer class="bg-white border-t mt-4"> <!-- Reduced margin-top -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6"> <!-- Reduced padding -->
+    <!-- Increased margin-top to add more space above the footer -->
+    <footer class="bg-white border-t mt-16"> <!-- Increased margin-top from 4 to 8 -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- Company Information -->
           <div class="space-y-4">
@@ -81,8 +81,7 @@ const page = usePage();
         </div>
 
         <!-- Copyright -->
-        <!-- Adjusted padding and margin for a more compact footer -->
-        <div class="border-t border-gray-200 mt-6 py-4 text-center text-sm text-gray-600"> <!-- Reduced margin-top -->
+        <div class="border-t border-gray-200 mt-6 py-4 text-center text-sm text-gray-600">
           © {{ new Date().getFullYear() }} Infinitrix Cargo Express. All Rights Reserved.
         </div>
       </div>

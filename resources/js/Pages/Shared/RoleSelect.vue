@@ -1,5 +1,4 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { router } from '@inertiajs/vue3';
 
 import { ShieldCheckIcon, BriefcaseIcon, TruckIcon, HandRaisedIcon } from '@heroicons/vue/24/solid';

@@ -99,7 +99,7 @@ const submit = () => {
             </div>
 
             <!-- Already Registered -->
-            <div class="mt-4 flex items-center justify-end">
+            <div class="mt-8 flex items-center justify-center">
                 <Link
                     :href="route('login')"
                     class="rounded-md text-sm text-gray-600 underline hover:text-gray-900"

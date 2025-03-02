@@ -82,7 +82,7 @@ class RegisteredUserController extends Controller
 
     // Redirect based on role
     return match ($user->role) {
-        'customer' => redirect()->route('customer.dashboard'),
+        'customer' => redirect()->route('customer.home'),
         'admin'    => redirect()->route('admin.dashboard'),
         'staff'    => redirect()->route('staff.dashboard'),
         'driver'   => redirect()->route('driver.dashboard'),

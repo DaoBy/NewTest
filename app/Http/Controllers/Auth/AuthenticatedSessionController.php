@@ -37,7 +37,7 @@ class AuthenticatedSessionController extends Controller
 
         // Role-specific redirect logic
         return match ($user->role) {
-            'customer'  => redirect()->intended(route('customer.dashboard')),
+            'customer'  => redirect()->intended(route('customer.home')),
             'admin'     => redirect()->intended(route('admin.dashboard')),
             'staff'     => redirect()->intended(route('staff.dashboard')),
             'driver'    => redirect()->intended(route('driver.dashboard')),

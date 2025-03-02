@@ -39,10 +39,13 @@ Route::get('/contact-us', [ContactController::class, 'index'])->name('contact.us
 Route::post('/contact-us', [ContactController::class, 'submit'])->name('contact.submit');
 
 
-// Customer Dashboard (default role: customer)
-Route::middleware(['auth', 'role:customer'])->group(function () {
-    Route::get('/dashboard', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
-});
+
+
+
+Route::get('/employee', fn() => Inertia::render('Auth/EmployeeLanding'))->name('employee.landing');
+
+
+
 
 // Dashboard routes for specific employee roles
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -72,7 +75,10 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
 // Role Select
 Route::get('/dashboard', fn () => Inertia::render('Shared/RoleSelect'))->name('role.select');
 
-// Admin Routes
+
+
+
+// TEST Admin Routes
 Route::prefix('admin')->group(function () {
     // Admin Dashboard
     Route::get('/dashboard', fn () => Inertia::render('Admin/AdminDash'))->name('admin.dashboard');

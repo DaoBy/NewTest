@@ -17,8 +17,8 @@ class CheckRole
     {
         // Ensure the user is authenticated and has a matching role
         if (!auth()->check() || !in_array(auth()->user()->role, $roles)) {
-            abort(403, 'Unauthorized');
-        }
+            return redirect()->route('login')->with('error', 'Unauthorized access.'); // Custom redirect
+    }
 
         return $next($request);
     }
