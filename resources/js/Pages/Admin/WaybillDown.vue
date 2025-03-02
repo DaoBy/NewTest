@@ -3,7 +3,7 @@ import EmployeeLayout from '@/Layouts/EmployeeLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { DocumentArrowDownIcon } from '@heroicons/vue/24/outline';
 
-// Example waybill data (replace with actual data from your backend)
+// Example waybill data 
 const waybills = [
   {
     id: 'WB001',

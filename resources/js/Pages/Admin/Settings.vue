@@ -2,7 +2,7 @@
 import EmployeeLayout from '@/Layouts/EmployeeLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
-// Example settings data (replace with actual data from your backend)
+// Example settings data
 const settings = {
   priceMatrix: {
     pricePerKg: '$5.00',

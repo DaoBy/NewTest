@@ -3,7 +3,7 @@ import EmployeeLayout from '@/Layouts/EmployeeLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { DocumentTextIcon, ChartBarIcon } from '@heroicons/vue/24/outline';
 
-// Example report data (replace with actual data from your backend)
+// Example report data 
 const reports = [
   {
     type: 'Waybill Slip',

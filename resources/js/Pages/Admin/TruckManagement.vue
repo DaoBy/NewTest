@@ -3,7 +3,7 @@ import EmployeeLayout from '@/Layouts/EmployeeLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { Table, TableHead, TableRow, TableHeaderCell, TableBody, TableCell } from '@heroicons/vue/24/outline';
 
-// Example truck data (replace with actual data from your backend)
+// Example truck data 
 const trucks = [
   {
     id: 'T001',

@@ -3,7 +3,7 @@ import EmployeeLayout from '@/Layouts/EmployeeLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { DocumentTextIcon, TruckIcon } from '@heroicons/vue/24/outline';
 
-// Example waybill and manifest data (replace with actual data from your backend)
+// Example waybill and manifest data 
 const waybills = [
   {
     waybillNumber: 'WB001',

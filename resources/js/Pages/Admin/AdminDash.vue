@@ -3,7 +3,7 @@ import EmployeeLayout from '@/Layouts/EmployeeLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { ChartBarIcon, TruckIcon, ClockIcon } from '@heroicons/vue/24/outline';
 
-// Example dashboard data (replace with actual data from your backend)
+// Example dashboard data 
 const dashboardData = {
   totalActiveDeliveries: 15,
   pendingPayments: '$1,200.00',

@@ -77,7 +77,7 @@
   import { Head } from '@inertiajs/vue3';
   import EmployeeLayout from '@/Layouts/EmployeeLayout.vue';
   
-  // Example delivery requests data (replace with actual data from your backend)
+  // Example delivery requests data 
   const deliveryRequests = ref([
     {
       id: 'DR001',
