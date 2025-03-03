@@ -61,7 +61,7 @@ class AuthenticatedSessionController extends Controller
         // Redirect based on role after logout
         return match ($user?->role) {
             'customer'  => redirect('/'),
-            'admin', 'staff', 'driver', 'collector' => redirect()->route('role.select'),
+            'admin', 'staff', 'driver', 'collector' => redirect()->route('employee.landing'),
             default     => redirect('/'), // Fallback for any unknown roles
         };
     }

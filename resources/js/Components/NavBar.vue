@@ -18,7 +18,7 @@ const toggleMobileMenu = () => {
 
 // Determine Home Link (Public Home vs. Dashboard)
 const homeLink = computed(() => {
-  return authUser.value ? route('customer.dashboard') : route('customer.home');
+  return authUser.value ? route('customer.home') : route('customer.home');
 });
 </script>
 
@@ -108,36 +108,36 @@ const homeLink = computed(() => {
       <!-- Mobile Navigation Menu -->
   <div v-if="isMobileMenuOpen" class="md:hidden bg-white shadow-md p-4 space-y-4 ">
     <!-- General Links -->
-    <div class="flex flex-col space-y-2 px-6">
-      <NavLink :href="homeLink" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2">
+    <div class="flex flex-col space-y-2 px-6 justify-center">
+      <NavLink :href="homeLink" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
         Home
       </NavLink>
-      <NavLink href="#" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2">
+      <NavLink href="#" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
         Services
       </NavLink>
-      <NavLink :href="route('contact.us')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2">
+      <NavLink :href="route('contact.us')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
         Contact Us
       </NavLink>
     </div>
 
     <!-- Authenticated User Menu -->
-    <div v-if="authUser" class="border-t pt-4 mt-4 px-6">
+    <div v-if="authUser" class="border-t pt-4 mt-4 px-6 items-center flex flex-col">
       <div class="pb-4">
-        <div class="text-base font-semibold text-gray-800">{{ authUser.name }}</div>
-        <div class="text-sm text-gray-500">{{ authUser.email }}</div>
-      </div>
+  <div class="text-base font-semibold text-gray-800 text-center">{{ authUser.name }}</div>
+  <div class="text-sm text-gray-500 text-center">{{ authUser.email }}</div>
+</div>
 
-      <div class="flex flex-col space-y-2">
-        <NavLink :href="route('profile.edit')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2">
+      <div class="flex flex-col space-y-2 justify-center">
+        <NavLink :href="route('profile.edit')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
           My Profile
         </NavLink>
-        <NavLink :href="route('address.book')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2">
+        <NavLink :href="route('address.book')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
           Address Book
         </NavLink>
-        <NavLink :href="route('transaction.history')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2">
+        <NavLink :href="route('transaction.history')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
           Transaction History
         </NavLink>
-        <NavLink :href="route('logout')" method="post" as="button" class="text-lg font-medium text-red-600 hover:bg-gray-100 rounded-lg py-2">
+        <NavLink :href="route('logout')" method="post" as="button" class="text-lg font-medium text-red-600 hover:bg-gray-100 rounded-lg py-2 justify-center">
           Logout
         </NavLink>
       </div>

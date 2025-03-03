@@ -72,12 +72,6 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
 });
 
 
-// Role Select
-Route::get('/dashboard', fn () => Inertia::render('Shared/RoleSelect'))->name('role.select');
-
-
-
-
 // TEST Admin Routes
 Route::prefix('admin')->group(function () {
     // Admin Dashboard

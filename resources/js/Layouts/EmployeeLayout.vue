@@ -7,32 +7,52 @@ const page = usePage();
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-100 flex">
-    <!-- Sidebar -->
-    <ESidebar />
+  <v-app>
+    <!-- Main Layout -->
+    <v-layout style="height: 100vh; overflow: hidden;">
+      <!-- Sidebar -->
+      <ESidebar />
 
-    <!-- Main Content -->
-    <div class="flex-1 flex flex-col">
-      <!-- Main Content Area -->
-      <main class="flex-1 w-full p-6">
-        <slot />
-      </main>
+      <!-- Main Content -->
+      <v-main class="flex-1 flex flex-col" style="overflow-y: auto;">
+        <!-- Main Content Area -->
+        <v-container fluid class="flex-1 w-full pa-6">
+          <slot />
+        </v-container>
 
-      <!-- Simplified Footer -->
-      <footer class="bg-white border-t mt-4">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center">
-          <p class="text-sm text-gray-600">
-            © {{ new Date().getFullYear() }} LogiSys. All rights reserved.
-          </p>
-          <p class="text-sm text-gray-600 mt-2">
-            Employee Portal - Designed for efficient logistics management.
-          </p>
-        </div>
-      </footer>
-    </div>
-  </div>
+        <!-- Simplified Footer -->
+        <v-footer class="bg-white border-t mt-4">
+          <v-container>
+            <v-row justify="center">
+              <v-col cols="12" class="text-center">
+                <p class="text-sm text-gray-600">
+                  © {{ new Date().getFullYear() }} LogiSys. All rights reserved.
+                </p>
+                <p class="text-sm text-gray-600 mt-2">
+                  Employee Portal - Designed for efficient logistics management.
+                </p>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-footer>
+      </v-main>
+    </v-layout>
+  </v-app>
 </template>
 
 <style scoped>
-/* Add any custom styles here if needed */
+/* Ensure the layout takes full height */
+.v-application {
+  height: 100vh;
+}
+
+/* Ensure the sidebar and main content take full height */
+.v-layout {
+  height: 100%;
+}
+
+/* Ensure the main content area scrolls if needed */
+.v-main {
+  overflow-y: auto;
+}
 </style>
