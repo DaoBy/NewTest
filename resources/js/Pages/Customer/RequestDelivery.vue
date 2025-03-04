@@ -6,14 +6,19 @@ import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { useForm } from '@inertiajs/vue3';
+import '@mdi/font/css/materialdesignicons.css';
+
+
+// Reset Form and Go Back to Step 1
+const resetForm = () => {
+  form.reset(); // Reset the form fields
+  currentStep.value = 1; // Go back to Step 1
+};
+
 
 // Form Step Management
 const currentStep = ref(1);
 
-
-
-
-// Form Data
 const form = useForm({
   customerType: 'individual', // Default: Individual
   senderFirstName: '',
@@ -39,19 +44,31 @@ const form = useForm({
   itemLength: '',
   itemWeight: '',
   itemQuantity: '',
+  paymentMethod: '', // Add paymentMethod field
 });
 
 // Available branches
 const branches = ['Naga', 'Malabon', 'Legazpi'];
 
+
+
 // Calculate Total Volume (Height × Width × Length)
 const totalVolume = computed(() => {
-  const { itemHeight, itemWidth, itemLength } = form;
-  if (!itemHeight || !itemWidth || !itemLength) return 0; // Handle partial inputs
+  const itemHeight = parseFloat(form.itemHeight) || 0;
+  const itemWidth = parseFloat(form.itemWidth) || 0;
+  const itemLength = parseFloat(form.itemLength) || 0;
   return itemHeight * itemWidth * itemLength;
 });
 
-// Validate Current Step
+const totalPrice = computed(() => {
+  const baseFee = 500;
+  const volumeCost = totalVolume.value * 50;
+  const weightCost = parseFloat(form.itemWeight) * 20 || 0;
+  const packageCost = parseFloat(form.itemQuantity) * 10 || 0;
+  return baseFee + volumeCost + weightCost + packageCost;
+});
+
+
 const validateStep = () => {
   form.clearErrors();
 
@@ -96,12 +113,20 @@ const validateStep = () => {
     if (form.itemWeight > 100) form.setError('itemWeight', 'Package weight exceeds 100 kg.');
   }
 
+  if (currentStep.value === 4) {
+    if (!form.paymentMethod) form.setError('paymentMethod', 'Payment method is required.');
+  }
+
   return !Object.keys(form.errors).length;
 };
 
 // Proceed to Next Step
 const nextStep = () => {
-  if (validateStep()) currentStep.value++;
+  if (validateStep()) {
+    if (currentStep.value < 5) {
+      currentStep.value++;
+    }
+  }
 };
 
 // Go Back to Previous Step
@@ -114,8 +139,7 @@ const submitRequest = () => {
   if (validateStep()) {
     form.post('/request-delivery', {
       onSuccess: () => {
-        alert('Delivery request submitted successfully!');
-        form.reset(); // Reset the form after submission
+        currentStep.value = 5; // Navigate to Step 5 (Confirmation)
       },
       onError: (errors) => {
         console.error('Submission failed:', errors);
@@ -128,23 +152,24 @@ const submitRequest = () => {
 <template>
   <GuestLayout>
     <div class="container mx-auto px-6 py-12 flex gap-12">
-      <!-- Progress Indicator (Left Side) -->
-      <div class="w-1/4 space-y-8">
-        <h2 class="text-2xl font-bold">Progress</h2>
-        <div class="flex flex-col gap-4">
-          <div v-for="(step, index) in ['Sender Info', 'Receiver Info', 'Item Details']" :key="index" class="flex items-center gap-4">
-            <div :class="[
-                'w-10 h-10 rounded-full flex items-center justify-center',
-                currentStep === index + 1 ? 'bg-black text-white' : 'bg-gray-300 text-gray-600'
-              ]">
-              {{ index + 1 }}
-            </div>
-            <span :class="currentStep === index + 1 ? 'font-semibold' : 'text-gray-500'">
-              {{ step }}
-            </span>
-          </div>
-        </div>
+
+<!-- Progress Indicator (Left Side) -->
+<div class="w-1/4 space-y-8">
+  <h2 class="text-2xl font-bold">Progress</h2>
+  <div class="flex flex-col gap-4">
+    <div v-for="(step, index) in ['Sender Info', 'Receiver Info', 'Item Details', 'Payment', 'Confirmation']" :key="index" class="flex items-center gap-4">
+      <div :class="[
+          'w-10 h-10 rounded-full flex items-center justify-center',
+          currentStep === index + 1 ? 'bg-black text-white' : 'bg-gray-300 text-gray-600'
+        ]">
+        {{ index + 1 }}
       </div>
+      <span :class="currentStep === index + 1 ? 'font-semibold' : 'text-gray-500'">
+        {{ step }}
+      </span>
+    </div>
+  </div>
+</div>
 
       <!-- Form Content (Right Side) -->
       <div class="w-3/4 space-y-8">
@@ -221,18 +246,24 @@ const submitRequest = () => {
     <InputError :message="form.errors.senderZip" />
   </div>
 
-  <!-- Drop-off Branch -->
-  <div class="space-y-2">
-    <InputLabel for="dropOffBranch" value="Drop-off Branch" />
-    <v-select
-      v-model="form.dropOffBranch"
-      :items="branches"
-      variant="outlined"
-      density="comfortable"
-      class="w-full"
-    ></v-select>
-    <InputError :message="form.errors.dropOffBranch" />
-  </div>
+<!-- Drop-off Branch -->
+<div class="space-y-2">
+  <InputLabel for="dropOffBranch" value="Drop-off Branch" />
+
+  <v-select
+    v-model="form.dropOffBranch"
+    :items="branches"
+    prepend-inner-icon="mdi-map-marker"
+    variant="outlined"
+    density="comfortable"
+    bg-color="bg-white" 
+    class="auto" 
+    
+  ></v-select>
+
+  <InputError :message="form.errors.dropOffBranch" />
+</div>
+
 
 
 
@@ -298,20 +329,20 @@ const submitRequest = () => {
     </div>
   </div>
 
-  <!-- Pick-up Branch -->
-  <div class="space-y-2">
-    <InputLabel for="pickUpBranch" value="Pick-up Branch" />
-
-    <v-select
-      v-model="form.pickUpBranch"
-      :items="branches"
-      variant="outlined"
-      density="comfortable"
-      class="w-full"
-    ></v-select>
-
-    <InputError :message="form.errors.pickUpBranch" />
-  </div>
+<!-- Pick-up Branch -->
+<div class="space-y-2">
+  <InputLabel for="pickUpBranch" value="Pick-up Branch" />
+  <v-select
+    v-model="form.pickUpBranch"
+    :items="branches"
+    variant="outlined"
+    density="comfortable"
+    bg-color="bg-white" 
+    class="auto" 
+    prepend-inner-icon="mdi-map-marker"
+  ></v-select>
+  <InputError :message="form.errors.pickUpBranch" />
+</div>
 
 
 
@@ -357,7 +388,7 @@ const submitRequest = () => {
       <InputLabel for="itemHeight" value="Height (m)" />
       <TextInput
         id="itemHeight"
-        v-model.number="form.itemHeight"
+        v-model="form.itemHeight"
         class="w-full"
         type="number"
         min="0"
@@ -370,7 +401,7 @@ const submitRequest = () => {
       <InputLabel for="itemWidth" value="Width (m)" />
       <TextInput
         id="itemWidth"
-        v-model.number="form.itemWidth"
+        v-model="form.itemWidth"
         class="w-full"
         type="number"
         min="0"
@@ -383,7 +414,7 @@ const submitRequest = () => {
       <InputLabel for="itemLength" value="Length (m)" />
       <TextInput
         id="itemLength"
-        v-model.number="form.itemLength"
+        v-model="form.itemLength"
         class="w-full"
         type="number"
         min="0"
@@ -401,7 +432,7 @@ const submitRequest = () => {
     <InputLabel for="itemWeight" value="Weight (KG)" />
     <TextInput
       id="itemWeight"
-      v-model.number="form.itemWeight"
+      v-model="form.itemWeight"
       class="w-full"
       type="number"
       min="0"
@@ -415,7 +446,7 @@ const submitRequest = () => {
     <InputLabel for="itemQuantity" value="Quantity (Number of Boxes/Packages)" />
     <TextInput
       id="itemQuantity"
-      v-model.number="form.itemQuantity"
+      v-model="form.itemQuantity"
       class="w-full"
       type="number"
       min="1"
@@ -427,11 +458,74 @@ const submitRequest = () => {
   <!-- Navigation Buttons -->
   <div class="flex justify-between pt-2">
     <PrimaryButton @click="prevStep">Back</PrimaryButton>
+    <PrimaryButton @click="nextStep">Next</PrimaryButton>
+  </div>
+</div>
+
+
+
+<!-- Step 4: Payment Price Calculator -->
+<div v-if="currentStep === 4" class="space-y-6">
+  <h2 class="text-xl flex items-center justify-center font-semibold">Payment Price Calculator</h2>
+
+  <!-- Pricing Info -->
+  <div class="bg-blue-100 text-blue-800 p-4 rounded-lg">
+    💰 <strong>Pricing Policy:</strong>
+    - Base Fee: <strong>₱500</strong><br>
+    - ₱50 per cubic meter<br>
+    - ₱20 per kilogram<br>
+    - ₱10 per package
+  </div>
+
+  <!-- Live Calculation -->
+  <div class="p-4 bg-gray-100 rounded-lg space-y-4">
+    <p>📏 <strong>Total Volume:</strong> {{ totalVolume.toFixed(2) }} cubic meters</p>
+    <p>⚖️ <strong>Total Weight:</strong> {{ form.itemWeight.toFixed(2) }} kg</p>
+    <p>📦 <strong>Quantity:</strong> {{ form.itemQuantity }} packages</p>
+
+    <p class="text-lg font-semibold">
+      🧾 <strong>Total Price:</strong> ₱{{ totalPrice.toFixed(2) }}
+    </p>
+  </div>
+
+<!-- Payment Method -->
+<div class="space-y-2">
+  <InputLabel for="paymentMethod" value="Select Payment Method" />
+  <v-select
+    id="paymentMethod"
+    v-model="form.paymentMethod"
+    :items="['Credit Card', 'Bank Transfer', 'Cash on Delivery']"
+    variant="outlined"
+    density="comfortable"
+    class="auto" 
+  ></v-select>
+  <InputError :message="form.errors.paymentMethod" />
+</div>
+
+  <!-- Navigation Buttons -->
+  <div class="flex justify-between pt-2">
+    <PrimaryButton @click="prevStep">Back</PrimaryButton>
     <PrimaryButton @click="submitRequest">Submit</PrimaryButton>
+  </div>
+</div>
+
+<!-- Step 5: Confirmation -->
+<div v-if="currentStep === 5" class="space-y-6">
+  <h2 class="text-xl flex items-center justify-center font-semibold">Submission Successful</h2>
+
+  <!-- Success Message -->
+  <div class="bg-green-100 text-green-800 p-4 rounded-lg text-center">
+    <p class="text-lg font-semibold">✅ Your delivery request has been submitted successfully!</p>
+    <p class="mt-2">We will call you if your request is granted and ready for receiving in our branch.</p>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="flex justify-center pt-6">
+    <PrimaryButton @click="resetForm">Submit Another Request</PrimaryButton>
   </div>
 </div>
       </div>
     </div>
-
   </GuestLayout>
 </template>
+

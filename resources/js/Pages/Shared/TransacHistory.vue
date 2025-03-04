@@ -22,6 +22,7 @@ const transactions = [
   <EmployeeLayout>
     <div class="p-6">
       <h1 class="text-2xl font-semibold text-gray-900 mb-6">Transaction History</h1>
+      
       <div class="overflow-x-auto bg-white rounded-lg shadow">
         <Table class="min-w-full">
           <TableHead>
