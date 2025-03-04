@@ -94,20 +94,20 @@ const submit = () => {
 
             <!-- Employee Role Selection -->
             <div class="mt-4">
-                <InputLabel for="role" value="Role" />
-                <select
-                    id="role"
-                    v-model="form.role"
-                    required
-                    class="mt-1 block w-full border-gray-300 rounded-md"
-                >
-                    <option value="admin">Admin</option>
-                    <option value="staff">Staff</option>
-                    <option value="driver">Driver</option>
-                    <option value="collector">Collector</option>
-                </select>
-                <InputError class="mt-2" :message="form.errors.role" />
-            </div>
+  <InputLabel for="role" value="Role" />
+
+  <v-select
+    id="role"
+    v-model="form.role"
+    :items="['admin', 'staff', 'driver', 'collector']"
+    variant="outlined"
+    density="comfortable"
+    required
+  ></v-select>
+
+  <InputError class="mt-2" :message="form.errors.role" />
+</div>
+
 
             <div class="mt-8 flex items-center justify-center">
                 <Link

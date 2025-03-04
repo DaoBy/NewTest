@@ -169,6 +169,7 @@ const submitRequest = () => {
     </div>
   </div>
 
+  
   <!-- Company Fields (if Company is selected) -->
   <div v-if="form.customerType === 'company'" class="space-y-2">
     <InputLabel for="senderCompanyName" value="Company Name" />

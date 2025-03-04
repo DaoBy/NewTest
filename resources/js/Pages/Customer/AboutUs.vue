@@ -1,4 +1,8 @@
 <script setup>
+import { ref } from 'vue';
+import deliveryImage from '@/assets/delivery.jpg';
+import trackingImage from '@/assets/tracking.jpg';
+import secureImage from '@/assets/secure.jpg';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 </script>
 
@@ -45,33 +49,23 @@ import GuestLayout from '@/Layouts/GuestLayout.vue';
           <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Team Member 1 -->
             <div class="text-center">
-              <img
-                src="https://via.placeholder.com/150"
-                alt="Team Member"
-                class="mx-auto h-32 w-32 rounded-full"
-              />
+              <img :src="deliveryImage" alt="Team Member" class="mx-auto h-32 w-32 rounded-full" />
               <h4 class="mt-4 text-lg font-semibold text-gray-900">Skibidi Sigma</h4>
               <p class="text-gray-600">CEO of Rizz & Gyat</p>
             </div>
 
             <!-- Team Member 2 -->
             <div class="text-center">
-              <img
-                src="https://via.placeholder.com/150"
-                alt="Team Member"
-                class="mx-auto h-32 w-32 rounded-full"
-              />
+              <img :src="deliveryImage" alt="Team Member" class="mx-auto h-32 w-32 rounded-full" />
+
               <h4 class="mt-4 text-lg font-semibold text-gray-900">Lord Rizzington</h4>
               <p class="text-gray-600">Chief Gyat Officer</p>
             </div>
 
             <!-- Team Member 3 -->
             <div class="text-center">
-              <img
-                src="https://via.placeholder.com/150"
-                alt="Team Member"
-                class="mx-auto h-32 w-32 rounded-full"
-              />
+              <img :src="deliveryImage" alt="Team Member" class="mx-auto h-32 w-32 rounded-full" />
+
               <h4 class="mt-4 text-lg font-semibold text-gray-900">Chuchu Supreme</h4>
               <p class="text-gray-600">Skibidi Ambassador</p>
             </div>
