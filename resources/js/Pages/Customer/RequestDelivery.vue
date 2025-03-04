@@ -10,6 +10,9 @@ import { useForm } from '@inertiajs/vue3';
 // Form Step Management
 const currentStep = ref(1);
 
+
+
+
 // Form Data
 const form = useForm({
   customerType: 'individual', // Default: Individual
@@ -147,67 +150,90 @@ const submitRequest = () => {
       <div class="w-3/4 space-y-8">
         <h1 class="text-3xl font-bold">Request a Delivery</h1>
 
-        <!-- Step 1: Sender Details -->
-        <div v-if="currentStep === 1">
-          <h2 class="text-xl flex items-center justify-center font-semibold mb-4">Sender Details</h2>
+       <!-- Step 1: Sender Details -->
+<div v-if="currentStep === 1" class="space-y-6">
+  <h2 class="text-xl flex items-center justify-center font-semibold">Sender Details</h2>
 
-          <!-- Customer Type (Radio Buttons) -->
-          <InputLabel value="Customer Type" />
-          <div class="flex gap-4">
-            <label class="flex items-center">
-              <input type="radio" value="individual" v-model="form.customerType" class="mr-2" />
-              Individual
-            </label>
-            <label class="flex items-center">
-              <input type="radio" value="company" v-model="form.customerType" class="mr-2" />
-              Company
-            </label>
-          </div>
+  <!-- Customer Type (Radio Buttons) -->
+  <div>
+    <InputLabel value="Customer Type" class="mb-2" />
+    <div class="flex gap-6">
+      <label class="flex items-center">
+        <input type="radio" value="individual" v-model="form.customerType" class="mr-2" />
+        Individual
+      </label>
+      <label class="flex items-center">
+        <input type="radio" value="company" v-model="form.customerType" class="mr-2" />
+        Company
+      </label>
+    </div>
+  </div>
 
-          <!-- Company Fields (if Company is selected) -->
-          <div v-if="form.customerType === 'company'">
-            <InputLabel for="senderCompanyName" value="Company Name" />
-            <TextInput id="senderCompanyName" v-model="form.senderCompanyName" class="w-full" />
-            <InputError :message="form.errors.senderCompanyName" />
-          </div>
+  <!-- Company Fields (if Company is selected) -->
+  <div v-if="form.customerType === 'company'" class="space-y-2">
+    <InputLabel for="senderCompanyName" value="Company Name" />
+    <TextInput id="senderCompanyName" v-model="form.senderCompanyName" class="w-full" />
+    <InputError :message="form.errors.senderCompanyName" />
+  </div>
 
-          <!-- Shared Fields (For Both Individual and Company) -->
-          <InputLabel for="senderFirstName" value="First Name" />
-          <TextInput id="senderFirstName" v-model="form.senderFirstName" class="w-full" />
-          <InputError :message="form.errors.senderFirstName" />
+  <!-- Shared Fields (For Both Individual and Company) -->
+  <div class="space-y-4">
+    <div>
+      <InputLabel for="senderFirstName" value="First Name" />
+      <TextInput id="senderFirstName" v-model="form.senderFirstName" class="w-full" />
+      <InputError :message="form.errors.senderFirstName" />
+    </div>
 
-          <InputLabel for="senderLastName" value="Last Name" />
-          <TextInput id="senderLastName" v-model="form.senderLastName" class="w-full" />
-          <InputError :message="form.errors.senderLastName" />
+    <div>
+      <InputLabel for="senderLastName" value="Last Name" />
+      <TextInput id="senderLastName" v-model="form.senderLastName" class="w-full" />
+      <InputError :message="form.errors.senderLastName" />
+    </div>
 
-          <InputLabel for="senderMobile" value="Mobile Number" />
-          <TextInput id="senderMobile" v-model="form.senderMobile" class="w-full" />
-          <InputError :message="form.errors.senderMobile" />
+    <div>
+      <InputLabel for="senderMobile" value="Mobile Number" />
+      <TextInput id="senderMobile" v-model="form.senderMobile" class="w-full" />
+      <InputError :message="form.errors.senderMobile" />
+    </div>
+  </div>
 
-          <!-- Address Fields -->
-          <InputLabel :value="form.customerType === 'company' ? 'Company Address' : 'Full Address'" />
-          <TextInput id="senderStreet" v-model="form.senderStreet" placeholder="Street" class="w-full" />
-          <InputError :message="form.errors.senderStreet" />
+  <!-- Address Fields -->
+  <div class="space-y-4">
+    <InputLabel :value="form.customerType === 'company' ? 'Company Address' : 'Full Address'" />
 
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <TextInput id="senderCity" v-model="form.senderCity" placeholder="City" class="w-full" />
-              <InputError :message="form.errors.senderCity" />
-            </div>
-            <div>
-              <TextInput id="senderProvince" v-model="form.senderProvince" placeholder="Province" class="w-full" />
-              <InputError :message="form.errors.senderProvince" />
-            </div>
-          </div>
+    <TextInput id="senderStreet" v-model="form.senderStreet" placeholder="Street" class="w-full" />
+    <InputError :message="form.errors.senderStreet" />
 
-          <TextInput id="senderZip" v-model="form.senderZip" placeholder="ZIP Code" class="w-full mt-4" />
-          <InputError :message="form.errors.senderZip" />
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <TextInput id="senderCity" v-model="form.senderCity" placeholder="City" class="w-full" />
+        <InputError :message="form.errors.senderCity" />
+      </div>
 
-          <InputLabel for="dropOffBranch" value="Drop-off Branch" />
-          <select v-model="form.dropOffBranch" class="w-full border-gray-300 rounded-md">
-            <option v-for="branch in branches" :key="branch" :value="branch">{{ branch }}</option>
-          </select>
-          <InputError :message="form.errors.dropOffBranch" />
+      <div>
+        <TextInput id="senderProvince" v-model="form.senderProvince" placeholder="Province" class="w-full" />
+        <InputError :message="form.errors.senderProvince" />
+      </div>
+    </div>
+
+    <TextInput id="senderZip" v-model="form.senderZip" placeholder="ZIP Code" class="w-full" />
+    <InputError :message="form.errors.senderZip" />
+  </div>
+
+  <!-- Drop-off Branch -->
+  <div class="space-y-2">
+    <InputLabel for="dropOffBranch" value="Drop-off Branch" />
+    <v-select
+      v-model="form.dropOffBranch"
+      :items="branches"
+      variant="outlined"
+      density="comfortable"
+      class="w-full"
+    ></v-select>
+    <InputError :message="form.errors.dropOffBranch" />
+  </div>
+
+
 
           <!-- Navigation Buttons -->
           <div class="flex justify-center mt-6">
@@ -216,54 +242,77 @@ const submitRequest = () => {
         </div>
 
         <!-- Step 2: Receiver Details -->
-        <div v-if="currentStep === 2">
-          <h2 class="text-xl flex items-center justify-center font-semibold mb-4">Receiver Details</h2>
+<div v-if="currentStep === 2" class="space-y-6">
+  <h2 class="text-xl flex items-center justify-center font-semibold">Receiver Details</h2>
 
-          <!-- Receiver First Name -->
-          <InputLabel for="receiverFirstName" value="First Name" />
-          <TextInput id="receiverFirstName" v-model="form.receiverFirstName" class="w-full" />
-          <InputError :message="form.errors.receiverFirstName" />
+  <!-- Receiver First Name -->
+  <div>
+    <InputLabel for="receiverFirstName" value="First Name" />
+    <TextInput id="receiverFirstName" v-model="form.receiverFirstName" class="w-full" />
+    <InputError :message="form.errors.receiverFirstName" />
+  </div>
 
-          <!-- Receiver Last Name -->
-          <InputLabel for="receiverLastName" value="Last Name" />
-          <TextInput id="receiverLastName" v-model="form.receiverLastName" class="w-full" />
-          <InputError :message="form.errors.receiverLastName" />
+  <!-- Receiver Last Name -->
+  <div>
+    <InputLabel for="receiverLastName" value="Last Name" />
+    <TextInput id="receiverLastName" v-model="form.receiverLastName" class="w-full" />
+    <InputError :message="form.errors.receiverLastName" />
+  </div>
 
-          <!-- Receiver Mobile -->
-          <InputLabel for="receiverMobile" value="Mobile Number" />
-          <TextInput id="receiverMobile" v-model="form.receiverMobile" class="w-full" />
-          <InputError :message="form.errors.receiverMobile" />
+  <!-- Receiver Mobile -->
+  <div>
+    <InputLabel for="receiverMobile" value="Mobile Number" />
+    <TextInput id="receiverMobile" v-model="form.receiverMobile" class="w-full" />
+    <InputError :message="form.errors.receiverMobile" />
+  </div>
 
-          <!-- Receiver Address -->
-          <h3 class="text-lg font-medium mt-4">Receiver Address</h3>
+  <!-- Receiver Address -->
+  <div class="space-y-4">
+    <h3 class="text-lg font-medium">Receiver Address</h3>
 
-          <InputLabel for="receiverStreet" value="Street" />
-          <TextInput id="receiverStreet" v-model="form.receiverStreet" placeholder="Street" class="w-full" />
-          <InputError :message="form.errors.receiverStreet" />
+    <div>
+      <InputLabel for="receiverStreet" value="Street" />
+      <TextInput id="receiverStreet" v-model="form.receiverStreet" placeholder="Street" class="w-full" />
+      <InputError :message="form.errors.receiverStreet" />
+    </div>
 
-          <div class="grid grid-cols-2 gap-4 mt-2">
-            <div>
-              <InputLabel for="receiverCity" value="City" />
-              <TextInput id="receiverCity" v-model="form.receiverCity" placeholder="City" class="w-full" />
-              <InputError :message="form.errors.receiverCity" />
-            </div>
-            <div>
-              <InputLabel for="receiverProvince" value="Province" />
-              <TextInput id="receiverProvince" v-model="form.receiverProvince" placeholder="Province" class="w-full" />
-              <InputError :message="form.errors.receiverProvince" />
-            </div>
-          </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <InputLabel for="receiverCity" value="City" />
+        <TextInput id="receiverCity" v-model="form.receiverCity" placeholder="City" class="w-full" />
+        <InputError :message="form.errors.receiverCity" />
+      </div>
 
-          <InputLabel for="receiverZip" value="ZIP Code" class="mt-2" />
-          <TextInput id="receiverZip" v-model="form.receiverZip" placeholder="ZIP Code" class="w-full" />
-          <InputError :message="form.errors.receiverZip" />
+      <div>
+        <InputLabel for="receiverProvince" value="Province" />
+        <TextInput id="receiverProvince" v-model="form.receiverProvince" placeholder="Province" class="w-full" />
+        <InputError :message="form.errors.receiverProvince" />
+      </div>
+    </div>
 
-          <!-- Pick-up Branch -->
-          <InputLabel for="pickUpBranch" value="Pick-up Branch" class="mt-4" />
-          <select v-model="form.pickUpBranch" class="w-full border-gray-300 rounded-md">
-            <option v-for="branch in branches" :key="branch" :value="branch">{{ branch }}</option>
-          </select>
-          <InputError :message="form.errors.pickUpBranch" />
+    <div>
+      <InputLabel for="receiverZip" value="ZIP Code" />
+      <TextInput id="receiverZip" v-model="form.receiverZip" placeholder="ZIP Code" class="w-full" />
+      <InputError :message="form.errors.receiverZip" />
+    </div>
+  </div>
+
+  <!-- Pick-up Branch -->
+  <div class="space-y-2">
+    <InputLabel for="pickUpBranch" value="Pick-up Branch" />
+
+    <v-select
+      v-model="form.pickUpBranch"
+      :items="branches"
+      variant="outlined"
+      density="comfortable"
+      class="w-full"
+    ></v-select>
+
+    <InputError :message="form.errors.pickUpBranch" />
+  </div>
+
+
 
           <!-- Navigation Buttons -->
           <div class="flex justify-between mt-6">
@@ -273,60 +322,115 @@ const submitRequest = () => {
         </div>
 
         <!-- Step 3: Item Description -->
-        <div v-if="currentStep === 3">
-          <h2 class="text-xl flex items-center justify-center font-semibold mb-4">Item Description</h2>
+<div v-if="currentStep === 3" class="space-y-6">
+  <h2 class="text-xl flex items-center justify-center font-semibold">Item Description</h2>
 
-          <!-- Advisory Message -->
-          <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg mb-4">
-            📢 <strong>Advisory:</strong> 
-            We only carry packages with a maximum volume of <strong>10 cubic meters</strong> and a weight of <strong>100 kg</strong>. 
-            Please ensure your items meet these requirements.
-          </div>
+  <!-- Advisory Message -->
+  <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg">
+    📢 <strong>Advisory:</strong> 
+    We only carry packages with a maximum volume of <strong>10 cubic meters</strong> and a weight of <strong>100 kg</strong>. 
+    Please ensure your items meet these requirements.
+  </div>
+  <div>
+  <InputLabel for="itemDescription" value="Package Description" />
 
-          <!-- Package Description -->
-          <InputLabel for="itemDescription" value="Package Description" />
-          <textarea id="itemDescription" v-model="form.itemDescription" 
-            placeholder="Describe briefly what you need to be delivered."
-            class="w-full p-2 border rounded-md resize-none"
-            rows="3">
-          </textarea>
-          <InputError :message="form.errors.itemDescription" />
+  <v-textarea
+    id="itemDescription"
+    v-model="form.itemDescription"
+    placeholder="Describe briefly what you need to be delivered."
+    variant="outlined"
+    rows="3"
+    class="w-full"
+    density="comfortable"
+    
+  ></v-textarea>
 
-          <!-- Height (m) -->
-          <InputLabel for="itemHeight" value="Height (m)" />
-          <TextInput id="itemHeight" v-model.number="form.itemHeight" class="w-full" type="number" min="0" step="0.01" />
-          <InputError :message="form.errors.itemHeight" />
+  <InputError :message="form.errors.itemDescription" />
+</div>
 
-          <!-- Width (m) -->
-          <InputLabel for="itemWidth" value="Width (m)" />
-          <TextInput id="itemWidth" v-model.number="form.itemWidth" class="w-full" type="number" min="0" step="0.01" />
-          <InputError :message="form.errors.itemWidth" />
 
-          <!-- Length (m) -->
-          <InputLabel for="itemLength" value="Length (m)" />
-          <TextInput id="itemLength" v-model.number="form.itemLength" class="w-full" type="number" min="0" step="0.01" />
-          <InputError :message="form.errors.itemLength" />
 
-          <!-- Total Volume (Live Calculation) -->
-          <p class="mt-2">📏 Total Volume: <strong>{{ totalVolume.toFixed(2) }} cubic meters</strong></p>
+  <!-- Dimensions (Height, Width, Length) -->
+  <div class="grid grid-cols-3 gap-4">
+    <div>
+      <InputLabel for="itemHeight" value="Height (m)" />
+      <TextInput
+        id="itemHeight"
+        v-model.number="form.itemHeight"
+        class="w-full"
+        type="number"
+        min="0"
+        step="0.01"
+      />
+      <InputError :message="form.errors.itemHeight" />
+    </div>
 
-          <!-- Weight (KG) -->
-          <InputLabel for="itemWeight" value="Weight (KG)" />
-          <TextInput id="itemWeight" v-model.number="form.itemWeight" class="w-full" type="number" min="0" step="0.01" />
-          <InputError :message="form.errors.itemWeight" />
+    <div>
+      <InputLabel for="itemWidth" value="Width (m)" />
+      <TextInput
+        id="itemWidth"
+        v-model.number="form.itemWidth"
+        class="w-full"
+        type="number"
+        min="0"
+        step="0.01"
+      />
+      <InputError :message="form.errors.itemWidth" />
+    </div>
 
-          <!-- Quantity (Boxes/Packages) -->
-          <InputLabel for="itemQuantity" value="Quantity (Number of Boxes/Packages)" class="mt-4" />
-          <TextInput id="itemQuantity" v-model.number="form.itemQuantity" class="w-full" type="number" min="1" step="1" />
-          <InputError :message="form.errors.itemQuantity" />
+    <div>
+      <InputLabel for="itemLength" value="Length (m)" />
+      <TextInput
+        id="itemLength"
+        v-model.number="form.itemLength"
+        class="w-full"
+        type="number"
+        min="0"
+        step="0.01"
+      />
+      <InputError :message="form.errors.itemLength" />
+    </div>
+  </div>
 
-          <!-- Navigation Buttons -->
-          <div class="flex justify-between mt-6">
-            <PrimaryButton @click="prevStep">Back</PrimaryButton>
-            <PrimaryButton @click="submitRequest">Submit</PrimaryButton>
-          </div>
-        </div>
+  <!-- Total Volume (Live Calculation) -->
+  <p>📏 Total Volume: <strong>{{ totalVolume.toFixed(2) }} cubic meters</strong></p>
+
+  <!-- Weight (KG) -->
+  <div>
+    <InputLabel for="itemWeight" value="Weight (KG)" />
+    <TextInput
+      id="itemWeight"
+      v-model.number="form.itemWeight"
+      class="w-full"
+      type="number"
+      min="0"
+      step="0.01"
+    />
+    <InputError :message="form.errors.itemWeight" />
+  </div>
+
+  <!-- Quantity (Boxes/Packages) -->
+  <div>
+    <InputLabel for="itemQuantity" value="Quantity (Number of Boxes/Packages)" />
+    <TextInput
+      id="itemQuantity"
+      v-model.number="form.itemQuantity"
+      class="w-full"
+      type="number"
+      min="1"
+      step="1"
+    />
+    <InputError :message="form.errors.itemQuantity" />
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="flex justify-between pt-2">
+    <PrimaryButton @click="prevStep">Back</PrimaryButton>
+    <PrimaryButton @click="submitRequest">Submit</PrimaryButton>
+  </div>
+</div>
       </div>
     </div>
+
   </GuestLayout>
 </template>

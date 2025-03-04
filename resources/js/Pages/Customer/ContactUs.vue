@@ -21,6 +21,7 @@ const submitForm = () => {
       form.reset();
       alert('Your message has been sent successfully!');
     },
+
     onError: () => {
       alert('There was an error submitting your message. Please try again.');
     },
@@ -68,17 +69,18 @@ const submitForm = () => {
               <InputError :message="form.errors.subject" />
             </div>
 
-            <!-- Message -->
-            <div class="mb-6">
-              <InputLabel for="message" value="Message" />
-              <textarea
-                id="message"
-                v-model="form.message"
-                rows="5"
-                class="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              ></textarea>
-              <InputError :message="form.errors.message" />
-            </div>
+        <!-- Message -->
+<div class="mb-6">
+  <InputLabel for="message" value="Message" />
+  <v-textarea
+    id="message"
+    v-model="form.message"
+    rows="5"
+    class="w-full"
+  ></v-textarea>
+  <InputError :message="form.errors.message" />
+</div>
+
 
             <!-- Submit Button -->
             <div class="flex justify-end">

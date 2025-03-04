@@ -1,4 +1,5 @@
 <script setup>
+import NavLink from '@/Components/NavLink.vue';
 import NavBar from '@/Components/NavBar.vue';
 import { usePage } from '@inertiajs/vue3';
 import { FaceSmileIcon, CameraIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/outline'
@@ -38,25 +39,24 @@ const page = usePage();
 
           <!-- Quick Links -->
           <div class="space-y-4">
-            <h3 class="text-lg font-semibold text-gray-900">Quick Links</h3>
-            <ul class="space-y-2">
-              <li>
-                <a href="#" class="text-sm text-gray-600 hover:text-gray-900">Home</a>
-              </li>
-              <li>
-                <a href="#" class="text-sm text-gray-600 hover:text-gray-900">Services</a>
-              </li>
-              <li>
-                <a href="#" class="text-sm text-gray-600 hover:text-gray-900">Contact Us</a>
-              </li>
-              <li>
-                <a href="#" class="text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a>
-              </li>
-              <li>
-                <a href="#" class="text-sm text-gray-600 hover:text-gray-900">Terms of Service</a>
-              </li>
-            </ul>
-          </div>
+    <h3 class="text-lg font-semibold text-gray-900">Quick Links</h3>
+    <ul class="space-y-2">
+      <li>
+        <NavLink :href="route('customer.home')" class="text-sm text-gray-600 hover:text-gray-900">Home</NavLink>
+      </li>
+      <li>
+        <NavLink :href="route('services')" class="text-sm text-gray-600 hover:text-gray-900">Services</NavLink>
+      </li>
+      <li>
+        <NavLink :href="route('contact.us')" class="text-sm text-gray-600 hover:text-gray-900">Contact Us</NavLink>
+      </li>
+      <li>
+        <NavLink :href="route('about.us')" class="text-sm text-gray-600 hover:text-gray-900">About Us</NavLink>
+      </li>
+      <li>
+      </li>
+    </ul>
+  </div>
 
           <!-- Contact Information -->
           <div class="space-y-4">

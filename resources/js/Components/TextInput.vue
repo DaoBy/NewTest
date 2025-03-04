@@ -41,7 +41,7 @@ defineExpose({
 
 <style scoped>
 .custom-input {
-  border: 2px solid #4a4a4a; /* Thicker and darker outline */
+  border: 1px solid #4a4a4a; /* Thicker and darker outline */
   border-radius: 8px; /* Rounded corners */
   padding: 10px 14px; /* Comfortable padding */
   outline: none; /* Remove default outline */
