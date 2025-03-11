@@ -31,8 +31,8 @@ const homeLink = computed(() => {
       <!-- Desktop Navigation -->
       <div class="hidden md:flex space-x-8">
         <NavLink :href="route('customer.home')">Home</NavLink>
-        <NavLink :href="route('about.us')">About Us</NavLink>
         <NavLink :href="route('services')">Services</NavLink>
+        <NavLink :href="route('about.us')">About Us</NavLink>
         <NavLink :href="route('contact.us')">Contact Us</NavLink>
 
       </div>
@@ -112,8 +112,11 @@ const homeLink = computed(() => {
       <NavLink :href="homeLink" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
         Home
       </NavLink>
-      <NavLink href="#" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
+      <NavLink :href="route('services')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
         Services
+      </NavLink>
+      <NavLink :href="route('about.us')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
+        About US
       </NavLink>
       <NavLink :href="route('contact.us')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
         Contact Us
@@ -133,6 +136,12 @@ const homeLink = computed(() => {
         </NavLink>
         <NavLink :href="route('address.book')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
           Address Book
+        </NavLink>
+        <NavLink :href="route('request.delivery')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
+          Request Delivery
+        </NavLink>
+        <NavLink :href="route('tracking')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
+          Track Package
         </NavLink>
         <NavLink :href="route('transaction.history')" class="text-lg font-medium text-gray-700 hover:bg-gray-100 rounded-lg py-2 justify-center">
           Transaction History

@@ -8,12 +8,13 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 
 // Customer registration form
 const form = useForm({
-    name: '',
+    name: '', // Changed from name to full_name
     email: '',
-    phone_number: '',
+    mobile: '',
     password: '',
     password_confirmation: '',
 });
+
 
 // Handle form submission
 const submit = () => {
@@ -59,15 +60,15 @@ const submit = () => {
 
             <!-- Phone Number -->
             <div class="mt-4">
-                <InputLabel for="phone_number" value="Phone Number" />
+                <InputLabel for="mobile" value="Phone Number" />
                 <TextInput
-                    id="phone_number"
+                    id="mobile"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.phone_number"
+                    v-model="form.mobile"
                     required
                 />
-                <InputError class="mt-2" :message="form.errors.phone_number" />
+                <InputError class="mt-2" :message="form.errors.mobile" />
             </div>
 
             <!-- Password -->

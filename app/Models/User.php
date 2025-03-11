@@ -2,22 +2,20 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable;
+
     protected $fillable = [
         'name',
         'email',
         'password',
         'role',
-        'profile_image',
         'is_active',
     ];
 
@@ -26,6 +24,17 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+    
+        static::deleting(function ($user) {
+            if ($user->customer) {
+                $user->customer->delete(); // Delete linked customer if it exists
+            }
+        });
+    }
+
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);
@@ -33,6 +42,6 @@ class User extends Authenticatable
 
     public function isCustomer(): bool
     {
-        return $this->role === 'customer';
+        return $this->role === 'customer' && $this->customer()->exists();
     }
 }

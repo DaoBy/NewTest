@@ -12,22 +12,33 @@ class Customer extends Model
 
     protected $fillable = [
         'user_id',
-        'phone_number',
-        'address',
-        'birth_date',
-        'gender',
+        'name',
+        'mobile',
+        'email',
+        'street',
+        'city',
+        'province',
+        'zip_code',
         'company_name',
-        'national_id',
-        'customer_type',
-        'preferences',
+        'is_system',
     ];
 
     protected $casts = [
-        'preferences' => 'array', // For storing JSON data
+        'is_system' => 'boolean',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeRegistered($query)
+    {
+        return $query->whereNotNull('user_id');
+    }
+
+    public function scopeWalkIns($query)
+    {
+        return $query->whereNull('user_id')->where('is_system', true);
     }
 }
